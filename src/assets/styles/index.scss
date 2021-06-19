@@ -1,0 +1,25 @@
+@import "theme";
+
+html, body {
+  background-image: linear-gradient(to right bottom, #4C566A, #2E3440);
+  overflow-x: hidden;
+  font-family: $font-primary;
+  min-height: 100vh;
+}
+
+.switch-flex {
+  & div:not(.switch) {
+    width: 12em;
+  }
+  display: flex;
+}
+
+h2 {
+  small {
+    font-size: 1rem;
+  }
+}
+
+.d-none {
+  display: none !important;
+}

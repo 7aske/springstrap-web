@@ -1,0 +1,120 @@
+$nord0: #2e3440;
+$nord1: #3b4252;
+$nord2: #434c5e;
+$nord3: #4c566a;
+$nord4: #d8dee9;
+$nord5: #e5e9f0;
+$nord6: #eceff4;
+$nord7: #8fbcbb;
+$nord8: #88c0d0;
+$nord9: #81a1c1;
+$nord10: #5e81ac;
+$nord11: #bf616a;
+$nord12: #d08770;
+$nord13: #ebcb8b;
+$nord14: #a3be8c;
+$nord15: #b48ead;
+
+$theme-black: $nord0;
+$theme-grey: $nord1;
+$theme-accent: $nord13;
+$theme-accent2: $nord15;
+$theme-primary: $nord8;
+$theme-primary-light: $nord7;
+$theme-white: $nord4;
+$theme-text: $theme-white;
+$font-primary: FiraCode-Medium;
+
+* {
+	color: $theme-text;
+}
+
+@font-face {
+	font-family: 'FiraCode-Medium';
+	src: url("../fonts/FiraCode-Medium.ttf");
+}
+
+
+@mixin color($color-value) {
+	color: $color-value
+}
+
+@mixin bg-color($color-value) {
+	background-color: $color-value;
+}
+
+@mixin border-color($color-value) {
+	border-color: $color-value;
+}
+
+.theme-primary-text {
+	@include color($theme-primary);
+}
+
+.theme-primary-border {
+	@include border-color($theme-primary);
+}
+
+.theme-primary {
+	@include bg-color($theme-primary);
+}
+
+.theme-accent-text {
+	@include color($theme-accent);
+}
+
+.theme-accent-border {
+	@include border-color($theme-accent);
+}
+
+.theme-accent {
+	@include bg-color($theme-accent);
+}
+
+.theme-accent2-text {
+	@include color($theme-accent2);
+}
+
+.theme-accent2-border {
+	@include border-color($theme-accent2);
+}
+
+.theme-accent2 {
+	@include bg-color($theme-accent2);
+}
+
+.theme-accent3-text {
+	@include color($nord10);
+}
+
+.theme-accent3-border {
+	@include border-color($nord10);
+}
+
+.theme-accent3 {
+	@include bg-color($nord10);
+}
+
+.theme-black-text {
+	@include color($theme-black);
+}
+
+.theme-black-border {
+	@include border-color($theme-black);
+}
+
+.theme-black {
+	@include bg-color($theme-black);
+}
+
+.theme-grey-text {
+	@include color($theme-grey);
+}
+
+.theme-grey-border {
+	@include border-color($theme-grey);
+}
+
+.theme-grey {
+	@include bg-color($theme-grey);
+}
