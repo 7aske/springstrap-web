@@ -20,6 +20,7 @@ function App() {
 		sort: false,
 		specification: false,
 		swagger: false,
+		security: false,
 		domain: "",
 		output: undefined,
 		tables: undefined,
@@ -138,6 +139,11 @@ function App() {
 				<h2>Springstrap <small><a target="_blank" rel="noopener"
 				                          href="https://github.com/7aske/springstrap">github.com/7aske/springstrap</a></small>
 				</h2>
+				<div>
+					<p>
+						Utility for generating a CRUD Spring Application from a database DDL
+					</p>
+				</div>
 				<div className="row">
 					<div className="input-field col s12 m12 l6">
 						<input placeholder="com.example" onChange={handleToggleSwitch} value={options.domain}
@@ -363,6 +369,25 @@ function App() {
 							<i data-for="lombok-info" data-tip="Replaces code with Lombok annotations where possible"
 							   className="material-icons tiny">help</i>
 							<ReactTooltip id="lombok-info" effect="solid" place="right" type="dark"/>
+						</div>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col s12 switch-flex">
+						<div className="truncate">
+							Spring Security
+						</div>
+						<div className="switch">
+							<label>
+								<input onChange={handleToggleSwitch}
+								       checked={options.security}
+								       name={"security"}
+								       type="checkbox"/>
+								<span className="lever"/>
+							</label>
+							<i data-for="security-info" data-tip="Implements basic Spring Security with com.auth0.java-jwt package."
+							   className="material-icons tiny">help</i>
+							<ReactTooltip id="security-info" effect="solid" place="right" type="dark"/>
 						</div>
 					</div>
 				</div>
