@@ -21,7 +21,8 @@
     "jsx": "react-jsx",
     "preserveConstEnums": false,
     "typeRoots": [
-      "./src/lib/springstrap/src/@types/method/**.*"
+      "./src/lib/springstrap/src/@types/method/**.*",
+      "./src/lib/springstrap/src/@types/**.*"
     ]
   },
   "include": [
