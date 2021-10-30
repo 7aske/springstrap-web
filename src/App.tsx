@@ -54,9 +54,10 @@ function App() {
 		if (selectRef.current)
 			M.FormSelect.init(selectRef.current, {
 				dropdownOptions: {
-					onCloseEnd: e => {
-						setOptions({...options, type: (e as any).value.toLowerCase()});
-					},
+					onCloseEnd: e => setOptions(oldState => ({
+						...oldState,
+						type: (e as any).value.toLowerCase(),
+					})),
 				},
 			});
 	}, [selectRef.current]);
@@ -65,20 +66,22 @@ function App() {
 		if (javaVersionRef.current)
 			M.FormSelect.init(javaVersionRef.current, {
 				dropdownOptions: {
-					onCloseEnd: e => {
-						setPomOptions({...pomOptions, javaVersion: (e as any).value});
-					},
+					onCloseEnd: e => setPomOptions(oldState => ({
+						...oldState,
+						javaVersion: (e as any).value,
+					})),
 				},
 			});
 	}, [javaVersionRef.current]);
 
 	useEffect(() => {
 		if (depsRef.current) {
-			const instance = M.FormSelect.init(depsRef.current, {
+			const instance: M.FormSelect = M.FormSelect.init(depsRef.current, {
 				dropdownOptions: {
-					onCloseEnd: e => {
-						setPomOptions({...pomOptions, deps: instance.getSelectedValues()});
-					},
+					onCloseEnd: () => setPomOptions(oldState => ({
+						...oldState,
+						deps: instance.getSelectedValues(),
+					})),
 				},
 			});
 		}
@@ -88,9 +91,10 @@ function App() {
 		if (packagingRef.current)
 			M.FormSelect.init(packagingRef.current, {
 				dropdownOptions: {
-					onCloseEnd: e => {
-						setPomOptions({...pomOptions, packaging: (e as any).value.toLowerCase()});
-					},
+					onCloseEnd: e => setPomOptions(oldState => ({
+						...oldState,
+						packaging: (e as any).value.toLowerCase(),
+					})),
 				},
 			});
 	}, [packagingRef.current]);
@@ -122,7 +126,7 @@ function App() {
 		const prop = e.target.name;
 		if (prop === "domain") {
 			val = e.target.value;
-			setPomOptions({...pomOptions, groupId: e.target.value})
+			setPomOptions({...pomOptions, groupId: e.target.value});
 		}
 		setOptions({...options, [prop]: val});
 	};
@@ -130,7 +134,11 @@ function App() {
 	const handlePomOptionsInput = (e: ChangeEvent<HTMLInputElement>) => {
 		let val: any = e.target.value;
 		const prop = e.target.name;
-		setPomOptions({...pomOptions, [prop]: val});
+		if (prop === "name") {
+			setPomOptions({...pomOptions, artifactId: val, [prop]: val});
+		} else {
+			setPomOptions({...pomOptions, [prop]: val});
+		}
 	};
 
 	useEffect(() => {
@@ -148,7 +156,9 @@ function App() {
 		const base = options.domain.split(".").pop() || "springstrap";
 		let res: GeneratedFile[] = [];
 		try {
-			res = springstrap(text, options, pomOptions);
+			const domain = options.pom ? options.domain + "." + pomOptions.name : options.domain;
+			const groupId = options.pom ? pomOptions.groupId + "." + pomOptions.name : pomOptions.groupId;
+			res = springstrap(text, {...options, domain}, {...pomOptions, groupId});
 		} catch (e) {
 			console.dir(e);
 			if (e.message && e.message.startsWith("Syntax error")) {
@@ -292,9 +302,11 @@ function App() {
 							<div className="input-field col s12 m12 l6">
 								<select ref={ref => depsRef.current = ref} multiple>
 									<option value="spring-dev-tools">Spring Dev Tools</option>
-									<option value="spring-configuration-processor">Spring Configuration Processor</option>
+									<option value="spring-configuration-processor">Spring Configuration Processor
+									</option>
 								</select>
-								<label>Additional dependencies <small>(excluding automatically added ones)</small></label>
+								<label>Additional dependencies <small>(excluding automatically added
+									ones)</small></label>
 							</div>
 						</div>
 					</div>
