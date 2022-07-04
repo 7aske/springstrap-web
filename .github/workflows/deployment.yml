@@ -7,13 +7,12 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
+      - name: install and build
       - uses: actions/checkout@v3
-      - name: setup node
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
       - run: npm i
-      - name: build
       - run: npm run build
       - name: rsync deploy
         uses: burnett01/rsync-deployments@5.2
