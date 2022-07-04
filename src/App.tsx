@@ -25,6 +25,8 @@ function App() {
 		swagger: false,
 		security: false,
 		domain: "",
+		pageable: false,
+		base: false,
 		output: undefined,
 		tables: undefined,
 		type: "mariadb",
@@ -128,7 +130,13 @@ function App() {
 			val = e.target.value;
 			setPomOptions({...pomOptions, groupId: e.target.value});
 		}
-		setOptions({...options, [prop]: val});
+		const _options = {...options, [prop]: val};
+		if (prop === "pageable" && val && !_options.specification) {
+			_options.sort = false;
+		} else if (prop === "sort" && val && !_options.specification) {
+			_options.pageable = false;
+		}
+		setOptions(_options);
 	};
 
 	const handlePomOptionsInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -452,6 +460,46 @@ function App() {
 									   data-tip="Add converter and request parameter for using Spring Sort objects in entity controllers"
 									   className="material-icons tiny">help</i>
 									<ReactTooltip id="sort-info" effect="solid" place="right" type="dark"/>
+								</div>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col s12 switch-flex">
+								<div className="truncate">
+									Pageable
+								</div>
+								<div className="switch">
+									<label>
+										<input onChange={handleToggleSwitch}
+											   checked={options.pageable}
+											   name={"pageable"}
+											   type="checkbox"/>
+										<span className="lever"/>
+									</label>
+									<i data-for="pageable-info"
+									   data-tip="Add converter and request parameter for using Spring Pageable objects in entity controllers"
+									   className="material-icons tiny">help</i>
+									<ReactTooltip id="pageable-info" effect="solid" place="right" type="dark"/>
+								</div>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col s12 switch-flex">
+								<div className="truncate">
+									Base
+								</div>
+								<div className="switch">
+									<label>
+										<input onChange={handleToggleSwitch}
+											   checked={options.base}
+											   name={"base"}
+											   type="checkbox"/>
+										<span className="lever"/>
+									</label>
+									<i data-for="base-info"
+									   data-tip="Add base repository, service and service implementations to reduce boilerplate code"
+									   className="material-icons tiny">help</i>
+									<ReactTooltip id="base-info" effect="solid" place="right" type="dark"/>
 								</div>
 							</div>
 						</div>
